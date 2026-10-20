@@ -1,0 +1,34 @@
+name: module4
+services:
+  studentportfolio:
+    build: ./Sharhan_Portfolio
+    image: studentportfolio:auto
+    container_name: studentportfolio
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    networks: [prf-network]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+  bankingapp:
+    build: ./BankingApp
+    image: bankingapp:auto
+    container_name: bankingapp
+    ports:
+      - "5090:5090"
+    restart: unless-stopped
+    networks: [prf-network]
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:5090/',r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+networks:
+  prf-network:
+    name: prf-network
+    driver: bridge

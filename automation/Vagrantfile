@@ -1,0 +1,14 @@
+# Sharhan Kaji | Student ID 0424551 | Sprint 1B
+Vagrant.configure("2") do |config|
+  config.vm.box = "eurolinux-vagrant/centos-stream-9"
+  config.vm.hostname = "sharhankaji-0424551-auto"
+  config.vm.network "private_network", ip: "192.168.56.53"
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 4096
+    vb.cpus = 2
+    vb.gui = false
+  end
+  config.vm.provision "file", source: "docker-compose.yml", destination: "/tmp/module4-compose.yml"
+  config.vm.provision "shell", path: "provision.sh"
+end
