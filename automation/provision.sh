@@ -44,4 +44,3 @@ docker exec studentportfolio wget -q -O /dev/null http://bankingapp:5090/
 echo "Sharhan Kaji | Student ID 0424551 | Auto Deploy ready"
 echo "Portfolio: http://192.168.56.53:3000"
 echo "Banking:   http://192.168.56.53:5090"
-echo "SCREENSHOT 002: capture this success output and both healthy services."
